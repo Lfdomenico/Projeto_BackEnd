@@ -5,6 +5,10 @@ Sistema web que funcione como um portfólio online dos alunos do curso de Bachar
 O sistema deverá permitir a interação de três tipos de usuários — Aluno, Administrador e Usuário Externo — cada um com permissões e funcionalidades específicas.
 O objetivo é integrar os conhecimentos de desenvolvimento back-end e front-end adquiridos ao longo da disciplina, aplicando arquitetura MVC e boas práticas de programação web.
 
+<img width="504" height="341" alt="Captura de tela 2025-10-04 002438" src="https://github.com/user-attachments/assets/cf999edb-4db1-4fe0-b9b7-3933b49e56fe" style = "width: 400px; height: 300px;" />
+
+
+
 **2 -  Requisitos do Sistema**
 
 ***2.1 Requisitos do Aluno***
@@ -18,14 +22,18 @@ O objetivo é integrar os conhecimentos de desenvolvimento back-end e front-end 
 | 0006  | Cada projeto pode ser desenvolvido por mais de um aluno. |
 | 0007  | Cada aluno pode cadastrar seus conhecimentos e defnir seu nível em cada um (em uma escala de 0 a 10). |
 | 0008  | Todos os conhecimentos devem estar previamente cadastrados no sistema. |
-| 0009  | Todos os conhecimentos devem estar previamente cadastrados no sistema. |
+| 0009  | Cada aluno pode editar e/ou excluir seus projetos, as palavras-chave de cada projeto e seus próprios conhecimentos. |
 
 
 ***2.2 Requisitos do usuário administrador***
 | ID            | Requisitos |
 | ------------- | ------------- |
+| 0001 | O administrador deve poder, quando logado no sistema, cadastrar, listar, editar e excluir alunos, palavras-chave e conhecimentos no sistema. |
 
 ***2.3 Requisitos do usuário externo***
 | ID            | Requisitos |
 | ------------- | ------------- |
+| 0001 | O usuário externo deve poder, sem estar logado no sistema, visualizar todos os projetos desenvolvidos pelos alunos. |
+| 0002 | O usuário externo deve poder, sem estar logado no sistema, visualizar todos os projetos vinculados a uma palavra-chave que ele tenha escolhido (entre as palavraschave já cadastradas no sistema).  |
+| 0003 | O usuário externo deve poder visualizar um relatório com a proporção de alunos que dominam cada um dos conhecimentos cadastrados no sistema |
 
