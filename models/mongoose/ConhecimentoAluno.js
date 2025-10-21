@@ -13,4 +13,4 @@ const ConhecimentoAlunoSchema = new Schema({
   });
   const ConhecimentoAluno = mongoose.model('ConhecimentoAluno', ConhecimentoAlunoSchema);
   
-  module.exports = { Projeto, PalavraChave, Conhecimento, ConhecimentoAluno };
+  module.exports = { ConhecimentoAluno };
