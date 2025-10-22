@@ -3,7 +3,7 @@ const path = require('path');
 const { sequelize, connectMongo } = require('./config/database');
 const session = require('./config/session');
 const { setLocals } = require('./middleware/authMiddleware');
-const routes = require('./routes'); // Importa o roteador principal
+const routes = require('./routes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,7 +17,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Sessão
 app.use(session);
 
 // Middleware global para res.locals
@@ -29,13 +28,12 @@ app.use(routes);
 // Inicialização
 const startServer = async () => {
   try {
-    // 1. Conectar ao MongoDB
+    // Conectar ao MongoDB
     await connectMongo();
-    // 2. Sincronizar Sequelize (PostgreSQL)
-    // CUIDADO: { force: true } apaga o banco. Use só em dev.
+    // Sincronizar Sequelize (PostgreSQL)
     await sequelize.sync(); 
     console.log('PostgreSQL sincronizado.');
-    // 3. Iniciar o servidor
+    // Iniciar o servidor
     app.listen(port, () => {
       console.log(`Servidor rodando na porta ${port}`);
     });

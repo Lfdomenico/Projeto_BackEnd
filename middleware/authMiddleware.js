@@ -1,5 +1,3 @@
-// Middleware para popular res.locals (Dica Prática)
-// Use isso em TODAS as rotas (app.use(setLocals))
 const setLocals = (req, res, next) => {
     if (req.session.user) {
       res.locals.user = req.session.user; // { id, nome, tipo }

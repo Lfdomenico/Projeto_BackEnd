@@ -36,5 +36,4 @@ router.post('/conhecimentos', adminController.createConhecimento);
 router.post('/conhecimentos/deletar/:id', adminController.deleteConhecimento);
 
 
-// NÃO ESQUEÇA DESTA LINHA
 module.exports = router;

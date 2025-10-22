@@ -1,15 +1,10 @@
-// Importa os models do Mongoose
 const { Projeto, PalavraChave, Conhecimento, ConhecimentoAluno } = require('../models/mongoose');
 
-const publicController = { // <--- (A) Verifique se o objeto está definido
+const publicController = { 
 
-  /**
-   * GET /
-   * Lista todos os projetos para o público.
-   */
-  listarProjetos: async (req, res) => { // <--- (B) Verifique se o nome está IDÊNTICO
+  // Lista todos os projetos para o público
+  listarProjetos: async (req, res) => {
     try {
-      // ... (todo o código que eu passei antes)
       const { keyword } = req.query;
       let filtro = {};
       if (keyword) {
@@ -32,13 +27,9 @@ const publicController = { // <--- (A) Verifique se o objeto está definido
     }
   },
 
-  /**
-   * GET /relatorio
-   * Exibe o relatório geral da turma.
-   */
+   // Exibe o relatório geral da turma
   mostrarRelatorio: async (req, res) => {
     try {
-      // ... (todo o código de agregação)
        const mediaConhecimentos = await ConhecimentoAluno.aggregate([
         { $group: { _id: '$conhecimento', nivelMedio: { $avg: '$nivel' } } },
         { $lookup: { from: 'conhecimentos', localField: '_id', foreignField: '_id', as: 'conhecimentoInfo' } },
@@ -58,5 +49,4 @@ const publicController = { // <--- (A) Verifique se o objeto está definido
   }
 };
 
-// (C) Verifique se você está exportando o objeto
 module.exports = publicController;

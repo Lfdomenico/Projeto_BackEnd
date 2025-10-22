@@ -27,9 +27,6 @@ router.post('/projetos/editar/:id', alunoController.updateProjeto);
 // POST /aluno/projetos/deletar/:id
 router.post('/projetos/deletar/:id', alunoController.deleteProjeto);
 
-// --- Gerenciamento de Conhecimentos ---
-// (Rotas para o aluno gerenciar seus próprios conhecimentos)
 
 
-// NÃO ESQUEÇA DESTA LINHA
 module.exports = router;

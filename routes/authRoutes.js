@@ -1,5 +1,3 @@
-// routes/authRoutes.js
-
 const router = require('express').Router();
 const authController = require('../controllers/authController');
 
@@ -15,5 +13,4 @@ router.post('/login', authController.login);
 // GET /logout
 router.get('/logout', authController.logout);
 
-// NÃO ESQUEÇA DESTA LINHA!
 module.exports = router;

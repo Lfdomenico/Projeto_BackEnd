@@ -1,12 +1,8 @@
-// Importa os models do Mongoose
 const { Projeto, PalavraChave, Conhecimento, ConhecimentoAluno } = require('../models/mongoose');
-// Importa o model do Sequelize
 const Usuario = require('../models/sequelize/Usuario');
 
-// (A) O objeto principal
 const alunoController = {
 
-  // (B) A FUNÇÃO QUE ESTÁ FALTANDO OU COM NOME ERRADO
   // GET /aluno/dashboard
   showDashboard: async (req, res) => {
     try {
@@ -33,7 +29,6 @@ const alunoController = {
   },
 
   // --- Funções de Projeto ---
-  // (Aqui entram todas as outras funções: showNovoProjetoForm, createProjeto, etc...)
   
   // GET /aluno/projetos/novo
   showNovoProjetoForm: async (req, res) => { /* ... */ },
@@ -52,5 +47,4 @@ const alunoController = {
 
 };
 
-// (C) A LINHA DE EXPORTAÇÃO NO FINAL
 module.exports = alunoController;

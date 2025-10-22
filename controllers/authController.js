@@ -24,7 +24,7 @@ const authController = {
         return res.redirect('/login');
       }
 
-      // Salva na sessão
+      // Salva
       req.session.user = {
         id: usuario.id,
         nome: usuario.nome,
