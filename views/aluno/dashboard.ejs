@@ -1,0 +1,30 @@
+<%- include('../partials/header') %>
+
+<h1>Meu Dashboard - <%= user.nome %></h1>
+
+<div class="d-flex justify-content-between align-items-center mb-3 mt-5">
+    <h3>Meus Projetos</h3>
+    <a href="/aluno/projetos/novo" class="btn btn-success">Novo Projeto</a>
+</div>
+
+<div class="list-group shadow-sm">
+    <% if (typeof projetos !== 'undefined' && projetos.length > 0) { %>
+        <% projetos.forEach(projeto => { %>
+            <div class="list-group-item">
+                <h5><%= projeto.nome %></h5>
+                <p><%= projeto.resumo %></p>
+                <a href="<%= projeto.link %>" target="_blank" class="btn btn-sm btn-outline-secondary">Link</a>
+                <a href="/aluno/projetos/editar/<%= projeto._id %>" class="btn btn-sm btn-warning">Editar</a>
+                <form action="/aluno/projetos/deletar/<%= projeto._id %>" method="POST" style="display: inline;" onsubmit="return confirm('Tem certeza?');">
+                    <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                </form>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p class="text-center p-3">Você ainda não cadastrou nenhum projeto.</p>
+    <% } %>
+</div>
+
+<h3 class="mt-5">Meus Conhecimentos</h3>
+<p>(O formulário para adicionar/editar conhecimentos ainda precisa ser criado)</p>
+<%- include('../partials/footer') %>

@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Portfólio UTFPR</a>
+        
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home (Projetos)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/relatorio">Relatório</a>
+                </li>
+
+                <% if (typeof user !== 'undefined' && user && typeof isAdmin !== 'undefined' && isAdmin) { %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="/admin/alunos">Gerenciar Alunos</a></li>
+                        <li><a class="dropdown-item" href="/admin/palavras-chave">Palavras-Chave</a></li>
+                        <li><a class="dropdown-item" href="/admin/conhecimentos">Conhecimentos</a></li>
+                    </ul>
+                </li>
+                <% } %>
+                
+                <% if (typeof user !== 'undefined' && user && typeof isAluno !== 'undefined' && isAluno) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/aluno/dashboard">Meu Dashboard</a>
+                </li>
+                <% } %>
+            </ul>
+
+            <div class="d-flex">
+                <% if (typeof user !== 'undefined' && user) { %>
+                    <span class="navbar-text me-3">
+                        Olá, <%= user.nome %>
+                    </span>
+                    <a href="/logout" class="btn btn-outline-danger">Sair</a>
+                <% } else { %>
+                    <a href="/login" class="btn btn-outline-success">Login</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>

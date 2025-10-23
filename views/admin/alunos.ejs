@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Gerenciar Alunos</h1>
+    <a href="/admin/alunos/novo" class="btn btn-success">Novo Aluno</a>
+</div>
+
+<div class="card shadow-sm">
+    <table class="table table-striped table-hover mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Nome</th>
+                <th>Login</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (typeof alunos !== 'undefined' && alunos.length > 0) { %>
+                <% alunos.forEach(aluno => { %>
+                    <tr>
+                        <td><%= aluno.nome %></td>
+                        <td><%= aluno.login %></td>
+                        <td><%= aluno.ativo ? 'Sim' : 'Não' %></td>
+                        <td>
+                            <a href="/admin/alunos/editar/<%= aluno.id %>" class="btn btn-sm btn-warning">Editar</a>
+                            <form action="/admin/alunos/deletar/<%= aluno.id %>" method="POST" style="display: inline;" onsubmit="return confirm('Tem certeza? Isso apagará o aluno e TODOS os seus projetos/conhecimentos.');">
+                                <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4" class="text-center">Nenhum aluno cadastrado.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/footer') %>

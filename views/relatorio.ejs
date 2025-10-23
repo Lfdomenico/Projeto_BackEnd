@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+
+<h1>Relatório Geral de Conhecimentos</h1>
+<p>Nível médio da turma (0-10) em cada tecnologia, baseado nos dados dos alunos.</p>
+
+<ul class="list-group mt-4 shadow-sm">
+    <% if (typeof mediaConhecimentos !== 'undefined' && mediaConhecimentos.length > 0) { %>
+        <% mediaConhecimentos.forEach(conhecimento => { %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <%= conhecimento.nome %>
+                <span class="badge bg-primary rounded-pill fs-6"><%= conhecimento.nivelMedio %></span>
+            </li>
+        <% }) %>
+    <% } else { %>
+        <li class="list-group-item">Nenhum dado de conhecimento registrado ainda.</li>
+    <% } %>
+</ul>
+
+<%- include('partials/footer') %>

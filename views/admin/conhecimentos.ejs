@@ -1,0 +1,60 @@
+<%- include('../partials/header') %>
+
+<h1>Gerenciar Conhecimentos</h1>
+<p>Tecnologias, linguagens e frameworks que os alunos podem registrar.</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header">Novo Conhecimento</div>
+            <div class="card-body">
+                <form action="/admin/conhecimentos" method="POST">
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome (ex: Java, React)</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+                     <div class="mb-3">
+                        <label for="area" class="form-label">Área (ex: Backend, Frontend)</label>
+                        <input type="text" class="form-control" id="area" name="area">
+                    </div>
+                    <button type="submit" class="btn btn-success">Criar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Área</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (typeof conhecimentos !== 'undefined' && conhecimentos.length > 0) { %>
+                        <% conhecimentos.forEach(c => { %>
+                            <tr>
+                                <td><%= c.nome %></td>
+                                <td><%= c.area || 'N/A' %></td>
+                                <td>
+                                    <form action="/admin/conhecimentos/deletar/<%= c._id %>" method="POST" onsubmit="return confirm('Tem certeza?');">
+                                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="3" class="text-center">Nenhum conhecimento cadastrado.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

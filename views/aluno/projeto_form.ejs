@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+
+<% const isEdit = typeof projeto !== 'undefined' && projeto._id %>
+<h1><%= isEdit ? 'Editar Projeto' : 'Novo Projeto' %></h1>
+
+<form action="<%= isEdit ? '/aluno/projetos/editar/' + projeto._id : '/aluno/projetos' %>" method="POST">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome do Projeto</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="<%= isEdit ? projeto.nome : '' %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="resumo" class="form-label">Resumo</label>
+                <textarea class="form-control" id="resumo" name="resumo" rows="3" required><%= isEdit ? projeto.resumo : '' %></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="link" class="form-label">Link (GitHub, etc)</label>
+                <input type="url" class="form-control" id="link" name="link" value="<%= isEdit ? projeto.link : '' %>" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Palavras-Chave (N:N)</label>
+                <% if (typeof palavrasChave !== 'undefined' && palavrasChave.length > 0) { %>
+                    <% palavrasChave.forEach(pc => { %>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="palavrasChaveIds" value="<%= pc._id %>" id="pc-<%= pc._id %>"
+                                <% if (isEdit && projeto.palavrasChave && projeto.palavrasChave.map(p => p.toString()).includes(pc._id.toString())) { %>
+                                    checked
+                                <% } %>
+                            >
+                            <label class="form-check-label" for="pc-<%= pc._id %>">
+                                <%= pc.nome %>
+                            </label>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p class="text-muted">Nenhuma palavra-chave cadastrada pelo admin.</p>
+                <% } %>
+            </div>
+
+            <a href="/aluno/dashboard" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary"><%= isEdit ? 'Salvar Alterações' : 'Criar Projeto' %></button>
+        </div>
+    </div>
+</form>
+
+<%- include('../partials/footer') %>

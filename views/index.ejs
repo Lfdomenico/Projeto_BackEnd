@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+
+<h1>Projetos dos Alunos</h1>
+
+<div class="list-group mt-4 shadow-sm">
+    <% if (typeof projetos !== 'undefined' && projetos.length > 0) { %>
+        <% projetos.forEach(projeto => { %>
+            <div class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><%= projeto.nome %></h5>
+                </div>
+                <p class="mb-1"><%= projeto.resumo %></p>
+                <a href="<%= projeto.link %>" target="_blank" class="btn btn-sm btn-outline-primary">Ver Projeto</a>
+                
+                <div class="mt-2">
+                    <% if (projeto.palavrasChave && projeto.palavrasChave.length > 0) { %>
+                        <% projeto.palavrasChave.forEach(pc => { %>
+                            <span class="badge bg-secondary"><%= pc.nome %></span>
+                        <% }) %>
+                    <% } %>
+                </div>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p class="text-center p-3">Nenhum projeto encontrado.</p>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>
