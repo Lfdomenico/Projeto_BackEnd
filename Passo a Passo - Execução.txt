@@ -1,0 +1,178 @@
+Passo a Passo:
+
+-Preparação do ambiente-
+
+
+
+### FASE 0: PREPARAÇÃO (SETUP)
+
+O objetivo é garantir que o servidor esteja pronto e que o primeiro administrador exista.
+
+1.  PG_DB=portfolio_db
+    PG_USER=postgres
+    PG_PASSWORD=utfpr
+    PG_HOST=localhost 
+
+2.  **Verificar os Serviços:** * Garanta que seus serviços do PostgreSQL e MongoDB estejam em execução.
+
+3.  **Executar o Seed do Admin:**
+    * No terminal, na raiz do projeto, execute o script de seed uma única vez:
+        > node seed.js
+    * Resultado Esperado: O terminal deve mostrar "Usuário admin criado com sucesso" (ou "Usuário admin já existe"). Isso cria o usuário `admin@utfpr.edu.br` (senha: `admin123`).
+
+4.  **Iniciar o Servidor:**
+    * Em um novo terminal, inicie a aplicação:
+        > node app.js
+    * Resultado Esperado: O terminal deve mostrar "MongoDB conectado...", "PostgreSQL sincronizado..." e "Servidor rodando na porta 3000".
+
+---
+
+### FASE 1: TESTE DE ADMINISTRADOR (O "ARQUITETO")
+
+O objetivo é fazer login como Admin e "preparar" o sistema, cadastrando os alunos e as tecnologias que eles poderão usar.
+
+1.  **Acessar o Login:**
+    * Abra o navegador e acesse: http://localhost:3000/login
+
+2.  **Efetuar Login (Admin):**
+    * Login: `admin@utfpr.edu.br`
+    * Senha: `admin123`
+    * Clique em "Entrar".
+    * Verificação: Redirecionado para `/admin/dashboard`. A navbar deve mostrar "Olá, Administrador" e o menu "Admin".
+
+3.  **Cadastrar Alunos (CRUD de Usuários):**
+    * Vá em Menu Admin -> Gerenciar Alunos.
+    * Clique em "Novo Aluno".
+    * Crie o Aluno 1:
+        * Nome: `Ana Silva`
+        * Login: `ana.silva@aluno.utfpr.edu.br`
+        * Senha: `ana123`
+    * Clique em "Novo Aluno" novamente.
+    * Crie o Aluno 2:
+        * Nome: `Bruno Costa`
+        * Login: `bruno.costa@aluno.utfpr.edu.br`
+        * Senha: `bruno123`
+    * Verificação: A lista (`/admin/alunos`) deve agora mostrar `Ana Silva` e `Bruno Costa`.
+
+4.  **Cadastrar Palavras-Chave (CRUD de Dados):**
+    * Vá em Menu Admin -> Palavras-Chave.
+    * Crie as seguintes (uma de cada vez):
+        * `Java`
+        * `React`
+        * `Node.js`
+        * `Mobile`
+        * `Inteligência Artificial`
+    * Verificação: As 5 palavras-chave devem aparecer na lista ao lado.
+
+5.  **Cadastrar Conhecimentos (CRUD de Dados):**
+    * Vá em Menu Admin -> Conhecimentos.
+    * Crie os seguintes:
+        * Nome: `Java`, Área: `Backend`
+        * Nome: `Spring Boot`, Área: `Backend`
+        * Nome: `Angular`, Área: `Frontend`
+        * Nome: `Python`, Área: `Data Science`
+        * Nome: `Kotlin`, Área: `Mobile`
+        * Nome: `PostgreSQL`, Área: `Banco de Dados`
+    * Verificação: Os 6 conhecimentos devem aparecer na lista ao lado.
+
+6.  **Fazer Logout:**
+    * Clique em "Sair" na navbar.
+
+---
+
+### FASE 2: TESTE DE ALUNO (O "USUÁRIO PRINCIPAL")
+
+O objetivo é simular a aluna `Ana Silva`, que vai popular seu portfólio.
+
+1.  **Acessar o Login:**
+    * Acesse: http://localhost:3000/login
+
+2.  **Efetuar Login (Aluno):**
+    * Login: `ana.silva@aluno.utfpr.edu.br`
+    * Senha: `ana123`
+    * Clique em "Entrar".
+    * Verificação: Redirecionado para `/aluno/dashboard`. A navbar deve mostrar "Olá, Ana Silva" e o link "Meu Dashboard".
+
+3.  **Teste de Segurança (Permissões):**
+    * Enquanto logado como Ana, tente acessar a página de admin na barra de endereço:
+        > http://localhost:3000/admin/alunos
+    * Verificação: Você deve ser redirecionado (para a Home `/` ou `/login`). Você NÃO PODE ver a lista de alunos.
+
+4.  **Cadastrar Conhecimentos (Aluno):**
+    * No dashboard, vá até a seção "Meus Conhecimentos".
+    * Verificação: O `<select>` "Adicionar Novo Conhecimento" deve listar os 6 conhecimentos que o Admin criou.
+    * Adicione 3 Conhecimentos:
+        * Selecione `Java`, Nível: `8`. Clique em "Adicionar".
+        * Selecione `Spring Boot`, Nível: `7`. Clique em "Adicionar".
+        * Selecione `React`, Nível: `6`. Clique em "Adicionar".
+    * Verificação: A lista "Meus Conhecimentos" à direita deve agora mostrar "Java (8)", "Spring Boot (7)" e "React (6)".
+
+5.  **Cadastrar Projeto (Aluno):**
+    * Na seção "Meus Projetos", clique em "Novo Projeto".
+    * Verificação: O formulário deve carregar. A seção "Palavras-Chave" deve mostrar os 5 checkboxes que o Admin criou.
+    * Preencha o formulário:
+        * Nome: `API de E-commerce`
+        * Resumo: `API RESTful para gestão de pedidos usando Spring Boot.`
+        * Link: `https://github.com/ana/ecommerce`
+        * Palavras-Chave: Marque `Java` e `Spring Boot`.
+    * Clique em "Criar Projeto".
+    * Verificação: Você deve voltar ao dashboard, e o projeto "API de E-commerce" deve aparecer na lista "Meus Projetos".
+
+6.  **Fazer Logout:**
+    * Clique em "Sair" na navbar.
+
+---
+
+### FASE 3: TESTE DE USUÁRIO EXTERNO (O "PÚBLICO")
+
+O objetivo é verificar o que um visitante (sem login) vê.
+
+1.  **Acessar a Home (Público):**
+    * Acesse: http://localhost:3000/
+    * Verificação: O `index.ejs` deve carregar. O projeto "API de E-commerce" (criado pela Ana) deve estar listado, exibindo as tags "Java" e "Spring Boot".
+
+2.  **Acessar o Relatório (Público):**
+    * Acesse: http://localhost:3000/relatorio
+    * Verificação: O `relatorio.ejs` deve carregar. Ele deve mostrar as médias de conhecimento da turma (baseado *apenas* nos dados da Ana):
+        * `Java`: Média 8
+        * `Spring Boot`: Média 7
+        * `React`: Média 6
+
+3.  **Teste de Segurança (Público):**
+    * Enquanto deslogado, tente acessar uma página de aluno:
+        > http://localhost:3000/aluno/dashboard
+    * Verificação: Você deve ser redirecionado para a tela de `login`.
+
+---
+
+### FASE 4: TESTE DE EDIÇÃO E EXCLUSÃO (CICLO COMPLETO)
+
+O objetivo é garantir que as edições e exclusões funcionem e se reflitam publicamente.
+
+1.  **Login (Aluno):**
+    * Faça login novamente como `ana.silva@aluno.utfpr.edu.br`.
+
+2.  **Editar Projeto:**
+    * No dashboard, clique em "Editar" no "API de E-commerce".
+    * Verificação: O formulário deve carregar com os dados. Os checkboxes `Java` e `Spring Boot` devem estar marcados.
+    * Altere:
+        * Resumo: Mude para `API RESTful com foco em segurança e performance.`
+        * Palavras-Chave: Desmarque `Spring Boot` e marque `React`.
+    * Clique em "Salvar Alterações".
+
+3.  **Excluir Conhecimento:**
+    * Em "Meus Conhecimentos", clique no botão "Excluir" ao lado de `Spring Boot`.
+    * Verificação: A página recarrega e "Spring Boot" some da lista da Ana.
+
+4.  **Logout (Aluno):**
+    * Clique em "Sair".
+
+5.  **Verificação Final (Público):**
+    * Acesse: http://localhost:3000/
+    * Verificação (Projeto): O "API de E-commerce" deve agora mostrar o resumo atualizado e as tags `Java` e `React`.
+    * Acesse: http://localhost:3000/relatorio
+    * Verificação (Relatório): A média de `Spring Boot` deve ter desaparecido ou zerado (pois a Ana o removeu). As médias de `Java` e `React` permanecem.
+
+=================================================
+FIM DO TESTE
+=================================================
