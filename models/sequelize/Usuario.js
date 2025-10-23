@@ -8,12 +8,12 @@ const Usuario = sequelize.define('Usuario', {
     primaryKey: true,
     autoIncrement: true
   },
-  login: { // ou email
+  login: { 
     type: DataTypes.STRING,
     unique: true,
     allowNull: false,
     validate: {
-      isEmail: true // Se for usar e-mail
+      isEmail: true 
     }
   },
   senhaHash: {
@@ -51,8 +51,6 @@ const Usuario = sequelize.define('Usuario', {
     }
   }
 });
-
-// Método para comparar senha
 Usuario.prototype.validarSenha = function(senha) {
   return bcrypt.compare(senha, this.senhaHash);
 };

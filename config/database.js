@@ -2,7 +2,7 @@ const {Sequelize} = require('sequelize')
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-// Configuração do Sequelize (PostgreSQL)
+
 const sequelize = new Sequelize(
   process.env.PG_DB,
   process.env.PG_USER,
@@ -12,7 +12,7 @@ const sequelize = new Sequelize(
   logging: false
 });
 
-// Configuração do Mongoose (MongoDB)
+
 const connectMongo = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
