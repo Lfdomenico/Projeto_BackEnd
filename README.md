@@ -1,4 +1,10 @@
 # Projeto — Portfólio Web do Curso de Engenharia de Software
+
+Alunos:
+Gabriela Rocha Passotto - 2454351
+Luiz Fernando Moreira Domenico - 2567962
+Wenio Oliveira Silva - 2410427
+
 **1 - Descrição Geral**
 
 Sistema web que funcione como um portfólio online dos alunos do curso de Bacharelado em Engenharia de Software.

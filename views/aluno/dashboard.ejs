@@ -25,60 +25,29 @@
     <% } %>
 </div>
 
-<h3 class="mt-5">Meus Conhecimentos</h3>
-
-<div class="row">
-    <div class="col-md-5">
-        <div class="card shadow-sm">
-            <div class="card-header">Adicionar Novo Conhecimento</div>
-            <div class="card-body">
-                <form action="/aluno/conhecimentos" method="POST">
-                    <div class="mb-3">
-                        <label for="conhecimentoId" class="form-label">Conhecimento</label>
-                        <select class="form-select" id="conhecimentoId" name="conhecimentoId" required>
-                            <option value="">Selecione...</option>
-                            <% if (typeof conhecimentosDisponiveis !== 'undefined' && conhecimentosDisponiveis.length > 0) { %>
-                                <% conhecimentosDisponiveis.forEach(c => { %>
-                                    <option value="<%= c._id %>"><%= c.nome %></option>
-                                <% }) %>
-                            <% } %>
-                        </select>
-                        <% if (typeof conhecimentosDisponiveis === 'undefined' || conhecimentosDisponiveis.length === 0) { %>
-                            <div class="form-text">Você já adicionou todos os conhecimentos.</div>
-                        <% } %>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nivel" class="form-label">Nível (0 a 10)</label>
-                        <input type_ "number" class="form-control" id="nivel" name="nivel" min="0" max="10" required>
-                    </div>
-                    <button type="submit" class="btn btn-success">Adicionar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-7">
-        <ul class="list-group shadow-sm">
-            <% if (typeof conhecimentos !== 'undefined' && conhecimentos.length > 0) { %>
-                <% conhecimentos.forEach(c => { %>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong><%= c.conhecimento.nome %></strong>
-                            <small class="text-muted">(<%= c.conhecimento.area || 'Geral' %>)</small>
-                        </div>
-                        <div>
-                            <span class="badge bg-primary rounded-pill fs-6 me-3"><%= c.nivel %></span>
-                            <form action="/aluno/conhecimentos/deletar/<%= c._id %>" method="POST" style="display: inline;" onsubmit="return confirm('Remover <%= c.conhecimento.nome %>?');">
-                                <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
-                            </form>
-                        </div>
-                    </li>
-                <% }) %>
-            <% } else { %>
-                <li class="list-group-item">Você ainda não cadastrou nenhum conhecimento.</li>
-            <% } %>
-        </ul>
-    </div>
+<div class="d-flex justify-content-between align-items-center mt-5 mb-3">
+    <h3>Meus Conhecimentos</h3>
+    <a href="/aluno/conhecimentos" class="btn btn-info">Gerenciar Conhecimentos</a>
 </div>
 
+<div class="list-group shadow-sm">
+    <% if (typeof conhecimentos !== 'undefined' && conhecimentos.length > 0) { %>
+        <% conhecimentos.forEach(mc => { %>
+            <div class="list-group-item">
+                <strong><%= mc.conhecimento ? mc.conhecimento.nome : 'N/A' %></strong>
+                <div class="progress" style="height: 15px;">
+                    <div class="progress-bar" role="progressbar" 
+                         style="width: <%= mc.nivel * 10 %>%;" 
+                         aria-valuenow="<%= mc.nivel %>" aria-valuemin="0" aria-valuemax="10">
+                        Nível <%= mc.nivel %>/10
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <div class="list-group-item text-center text-muted">
+            Você ainda não adicionou nenhum conhecimento.
+        </div>
+    <% } %>
+</div>
 <%- include('../partials/footer') %>

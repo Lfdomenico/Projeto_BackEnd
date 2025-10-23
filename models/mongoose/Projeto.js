@@ -5,9 +5,9 @@ const ProjetoSchema = new Schema({
     nome: { type: String, required: true },
     resumo: { type: String, required: true },
     link: { type: String, required: true },
-    alunoId: { type: Number, required: true, index: true },
-    
-    palavrasChave: [{ type: Schema.Types.ObjectId, ref: 'PalavraChave' }]
+    alunoId: { type: String, required: true, index: true },  
+    palavrasChave: [{ type: Schema.Types.ObjectId, ref: 'PalavraChave' }], 
+    desenvolvedores: [{ type: String, index: true }]
   }, { timestamps: true });
   const Projeto = mongoose.model('Projeto', ProjetoSchema);
 
